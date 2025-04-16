@@ -1,0 +1,25 @@
+Class 5 laser- 
+
+500kw, possible not implemented- weight requirements to get to 1mw 
+
+- 30k lb of lithum ion batteries- $2.2 million= wires in series
+
+- C-130 max payload of 44,000 lbs
+
+scaleable size------------------------------------------------
+
+$200K for 60kw 120v 3 phase, commercially bought
+
+3000 lbs- 60kw bank / 2 = 1200 lbs Vac L-L
+
+scale power up-scale weight down
+
+this system fits on an MQ-9
+
+moving forward-------------------------------------------------
+
+4-6 months  
+
+
+
+

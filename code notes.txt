@@ -1,0 +1,16 @@
+code notes
+===================================================
+
+use shunt, calculate voltage and resistance 
+
+new BEM 280 address 77
+
+===================================================
+
+compass 0x13
+
+equation for Z
+
+heading = atan2(y, x) * 180 / M_PI;
+
+===================================================

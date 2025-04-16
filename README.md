@@ -1,2 +1,2 @@
-# HOPR
-HOPR Pod New repository
+# HOPR-pod
+HOPR project for USAF
