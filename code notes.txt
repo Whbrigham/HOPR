@@ -14,3 +14,11 @@ equation for Z
 heading = atan2(y, x) * 180 / M_PI;
 
 ===================================================
+
+Accelerometer test plan:
+
+Orientation	Expected Pitch	Expected Roll
+Flat on table	~0°	~0°
+Nose up (rotate X)	Positive	~0°
+Left tilt (rotate Y)	~0°	Negative
+Right tilt	~0°	Positive

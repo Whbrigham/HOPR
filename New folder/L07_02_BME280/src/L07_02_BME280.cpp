@@ -84,7 +84,7 @@ void setup() {
  if (status == false) {
  Serial.printf("BME280 at address 0x%02X failed", hexaddress);
  }
-//Initialize OLED 0x3C
+//Initialize OLED 0x3C 
  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
 //initialize Neopixels #4-16
  pixel.begin();
@@ -106,7 +106,7 @@ void loop() {
 		// Display data on Serial Monitor
 		Serial.printf("[Temp: %0.f F]\t[Pressure: %.2f Hg]\n  [Humidity: %0.0f %%]\n",F,baro_Hg,humidity);
 		Serial.println("");Serial.println("");Serial.println("");Serial.println("");
-		// Display data on OLED
+		// Display data on OLED (if using it)
 		display.printf("%0.fF\t%0.0f%%\n",F,humidity);
 		display.printf("%.2f\n",baro_Hg);
 		display.setRotation(2);
