@@ -1,0 +1,103 @@
+/* 
+ * Project L13_01_MPU6050
+ * Author: Brigham
+ * Date: 3/25/2025
+ * For comprehensive documentation and examples, please visit:
+ * https://docs.particle.io/firmware/best-practices/firmware-template/
+ */
+
+// Include Particle Device OS APIs
+#include "Particle.h"
+#include "Adafruit_GFX.h"
+#include "Adafruit_SSD1306.h"
+
+
+const int OLED_RESET=-1;
+Adafruit_SSD1306 display(OLED_RESET);
+
+// Let Device OS manage the connection to the Particle Cloud
+SYSTEM_MODE(SEMI_AUTOMATIC);
+
+// Run the application and system concurrently in separate threads
+SYSTEM_THREAD(ENABLED);
+
+// Show system, cloud connectivity, and application logs over USB
+// View logs with CLI using 'particle serial monitor --follow'
+SerialLogHandler logHandler(LOG_LEVEL_INFO);
+
+const int MPU_ADDR = (0x68);
+
+// Accelerometer scaling factor for ±2g (16384 LSB per g)
+const float ACCEL_SCALE = 16384.0;
+
+byte accel_z_h, accel_z_l; //bytes for z-axis
+int16_t accel_z; // Variable to store the z-acceleration
+
+// Print data every 1 second
+unsigned long lastPrintTime = 0;
+const unsigned long printInterval = 1000;
+
+void setup() {
+  Serial.begin(9600);
+  waitFor(Serial.isConnected,10000);
+  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
+
+  display.display(); // show splashscreen
+  delay(2000);
+  display.clearDisplay(); // clears the screen and buffer
+  for (int rot=0; rot<=3; rot++){
+    display.setRotation(rot);
+
+  display.clearDisplay();
+  display.setTextSize(2);
+  display.setTextColor(WHITE);
+  display.setCursor(0,0);
+  display.clearDisplay();
+  display.println("4/18/25");
+  }
+
+
+  // Initialize.................
+  Wire.begin();
+
+  // Begin transmission.........
+  Wire.beginTransmission(MPU_ADDR);
+  Wire.write(0x6B); // Power Management register
+  Wire.write(0x00); // Wake MPU-6050
+  //end transmission............
+  Wire.endTransmission(true);
+}
+
+void loop() {
+  // Begin transmission to read accel data
+  Wire.beginTransmission(MPU_ADDR);
+  Wire.write(0x47); // Register address for Z axis gyro data
+  //  WIRE.WRITE IS WHERE YOU DECIDE WHAT DATA TO PULL AND WHAT THE MPU6050 WILL FUNCTION AS
+  Wire.endTransmission(false);
+
+  // Request 6 bytes (2 bytes per axis)
+  Wire.requestFrom(MPU_ADDR, 6, true);
+  // data for X
+  accel_x_h = Wire.read(); 
+  accel_x_l = Wire.read(); 
+  accel_x = accel_x_h << 8 | accel_x_l;
+  //data for Y
+  accel_y_h = Wire.read(); 
+  accel_y_l = Wire.read(); 
+  accel_y = accel_y_h << 8 | accel_y_l;
+  //data for Z
+  accel_z_h = Wire.read();
+  accel_z_l = Wire.read(); 
+  accel_z = accel_z_h << 8 | accel_z_l;
+
+
+  //convert raw data to GYRO
+
+  float accel_z_g = accel_z / ACCEL_SCALE;
+
+  // Print 
+  if (millis() - lastPrintTime >= printInterval) {
+    Serial.printf("X-axis: %.1f g\nY-axis: %.1f g\nZ-axis: %.1f g\n", accel_z_g);
+    lastPrintTime = millis(); 
+  }
+}
