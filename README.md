@@ -6,6 +6,6 @@ eliminating the need for ground support equiptment means that crew can utilize t
 
 the 3 key peices of code i focused on with this project are: GPS, Accel data, and publish. using these three, ive essentially created a "black box"for any aircraft at a fraction of the price. the best part is, this data is stored remotely, so there is no need for the device to be crash proof- the data is on thr adafruit.io website. 
 
-the "black box feature, combined with Lithium Iron Phosphate batteries and redundant charging ssystems ensure the system will not fail if installed correctly. im wprkking on technical data for the system. 
+the "black box feature, combined with Lithium Iron Phosphate batteries and redundant charging ssystems ensure the system will not fail if installed correctly. im working on technical data for the system- more to follow
 
 credit to Brian, EJ, and Jamie for all the help. best teachers in the biz. 
